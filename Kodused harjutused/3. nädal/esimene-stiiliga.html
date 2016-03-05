@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title> Kodune ülesanne - 1. nädal </title>
+		<style type="text/css">
+		table	{border:2px solid black;width:50%;background-color:#f3f3f3}
+		tr,td	{border:1px solid black}
+		body	{background-image: url("http://sales-and-marketing-solutions.com/wp-content/uploads/2013/06/website-background-pattern.jpg")}	
+		a:hover	{color:red;border}
+		img		{border:1px solid black}
+		img:hover	{border:1px solid blue}
+		li:hover	{color:darkblue}
+		#sub li:hover	{color:#3366ff}
+		#main	{border:1px solid black}
+		ul		{display:table; background-color:#ffe6f2}
+		#heading	{width:200px; height:100px; background-color:#ff99cc; 
+					text-align:center; line-height:100px; align:center;
+					-ms-transform:rotate(-7deg);-webkit-transform:rotate(-7deg)}
+		#heading:hover	{background-color:#ffcce5}
+		</style>
+	</head>
+	<body>
+
+	<h1 id="heading"> HTML </h1>
+	
+	
+	<p> 
+		<b>HTML</b> (ingliskeelne lühend sõnadest <em>HyperText Markup Language</em>) on keel, 
+		milles märgendatakse veebilehti. HTML on SGML-i rakendus. HTML-dokumentide (failide) veebist 
+		allalaadimiseks ja vaatamiseks kasutatakse veebibrauserit. Selline elektroonilise dokumendi 
+		märgendamise mõte on lahutada sisu, vaade jms objekti omadused üksteisest. HTML paneb paika 
+		üksnes dokumendi struktuuri, kuid võimaldab veebiehele kaasata skripte, eeskätt JavaScripti 
+		ja CSS-i, millega kirjeldatakse lehe kujundus.
+	</p>
+	
+	<h3><u>Ajalugu</u></h3>
+	
+	HTML-i lõi koos veebiga 1990. aastal Tim Berners-Lee. Aastal 1994 asutas ta W3C, mis on 
+	sellest ajast alates tegelenud muuhulgas ka HTML-i standardite väljatöötamisega.
+	<br>
+	<br>
+	Nimekiri W3C välja töötatud HTML-i versioonidest:
+	
+	<ul id="main">
+		<li>HTML 2.0</li>
+		<li>HTML 3.2</li>
+		<li>HTML 4.01
+			<ul id="sub">
+				<li>HTML 4.01 Strict – W3C soovituslik versioon.</li>
+				<li>HTML 4.01 Transitional – lubab kasutada ka esitlusega seotud elemente ja atribuute. 
+				See lihtsustab ületulekut varasematelt HTML-i versioonidelt.</li>
+				<li>HTML 4.01 Frameset – võimaldab veebilehe tegemisel kasutada nn raame (frame).</li>
+			</ul>
+		</li>
+	</ul>
+	
+	Viimased kolm on paralleelselt formuleeritud ka XHTML-is. Praegu on arenduses HTML5.
+	
+	<h3><u>Abiks</u></h3>
+	<h4>Koodinäide</h4>
+	<p>
+		Kõige lihtsam HTML-is kirjutatud veebileht näeb välja selline:
+		<br>
+		<img src="HTML-example.PNG" alt="HTML code example" />
+		<br>
+		Vastavalt programmeerimisest tuntuks saanud "Tere maailm" programmi tavale näeb seda veebilehte 
+		brauseriga vaadates teksti "Tere maailm!". Koodi alguses olev &lt;!DOCTYPE viitab dokumendi tüübi 
+		definitsioonile, mis määrab HTML-i versiooni, millele veebileht vastab. Näite puhul on selleks 
+		HTML 5. Kuigi HTML-i süntaks on kogu maailmas ühtne, on paljud brauserid lisanud sellele 
+		omalaiendusi, mis tihti teiste brauseritega ei tööta. Väikesi erinevusi on brauserite vahel ka 
+		ühtse koodi interpreteerimisel.
+	</p>
+	
+	<h4>Elemendid</h4>
+	<table>
+	<!--<caption> Elemendid </caption>-->
+		<tr>
+			<td> &lt;b> </td>
+			<td><b> This text is bold </b></td>
+		</tr>
+		<tr>
+			<td> &lt;em> </td>
+			<td><em> This text is emphasized </em></td>
+		</tr>
+		<tr>
+			<td> &lt;u> </td>
+			<td><u> This text is underlined </u></td>
+		</tr>
+		<tr>
+			<td> &lt;del> </td>
+			<td><del> This text is deleted </del></td>
+		</tr>
+		<tr>
+			<td> &lt;mark> </td>
+			<td><mark> This text is marked </mark></td>
+		</tr>
+		<tr>
+			<td> &lt;sup> </td>
+			<td> This is <sup>superscripted</sup> text </td>
+		</tr>
+		<tr>
+			<td> &lt;sub> </td>
+			<td> This is <sub>subscripted</sub> text </td>
+		</tr>
+		<tr>
+			<td> &lt;h1> </td>
+			<td><h1> This is a heading </h1></td>
+		</tr>
+		<tr>
+			<td> &lt;h2> </td>
+			<td><h2> This is a heading </h2></td>
+		</tr>
+		<tr>
+			<td> &lt;h3> </td>
+			<td><h3> This is a heading </h3></td>
+		</tr>
+		<tr>
+			<td> &lt;h4> </td>
+			<td><h4> This is a heading </h4></td>
+		</tr>
+		<tr>
+			<td> &lt;h5> </td>
+			<td><h5> This is a heading </h5></td>
+		</tr>
+		<tr>
+			<td> &lt;h6> </td>
+			<td><h6> This is a heading </h6></td>
+		</tr>
+	</table>
+
+	
+	<p>
+		<b>Kasutatud materjal:</b>
+		<br>
+		<a href="https://et.wikipedia.org/wiki/HTML">Vikipeedia - HTML</a>
+		<br>
+		<a href="http://www.w3schools.com/html/default.asp">W3Schools.com</a>
+	</p>
+	
+	<p>
+		<a href="http://validator.w3.org/check?uri=referer">
+			<img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict" height="31" width="88" />
+		</a>
+	</p>
+	
+	
+	
+	</body>
+</html>
