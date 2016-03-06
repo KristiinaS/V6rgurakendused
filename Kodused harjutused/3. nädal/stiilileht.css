@@ -37,8 +37,6 @@ ul{
 	line-height:100px;
 	background-color:#ff99cc; 
 	text-align:center;  
-	align:center;
-	-ms-transform:rotate(-7deg);
 	transform:rotate(-7deg);
 }
 #heading:hover{
