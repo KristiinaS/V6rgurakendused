@@ -9,6 +9,11 @@ tr,td{
 body{
 	background-image: url("http://sales-and-marketing-solutions.com/wp-content/uploads/2013/06/website-background-pattern.jpg");
 }	
+#sisu{
+	max-width:1000px;
+	min-width:600px;
+	margin:auto;
+}
 a:hover{
 	color:red;
 }
