@@ -3,16 +3,38 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Galerii</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="javascript.js"></script>
 	</head>
 	<body>
 		<h1> Galerii </h1>
-		<a href="esimene-pilt.html">
-			<img src="thumb/esimene-thumb.JPG" alt="esimene pilt"></a>
-		<a href="teine-pilt.html">
-			<img src="thumb/teine-thumb.JPG" alt="teine pilt"></a>
-		<a href="kolmas-pilt.html">
-			<img src="thumb/kolmas-thumb.JPG" alt="kolmas pilt"></a>
-		<a href="neljas-pilt.html">
-			<img src="thumb/neljas-thumb.JPG" alt="neljas pilt"></a>
+		<div id="pictures">
+		<a href="img/esimene.jpg">
+			<img src="thumb/esimene-thumb.JPG" alt="esimene pilt" 
+			onclick="showDetails(this.alt); return false;"></a>
+		<a href="img/teine.jpg">
+			<img src="thumb/teine-thumb.JPG" alt="teine pilt"
+			onclick="showDetails(this.alt); return false;"></a>
+		<a href="img/kolmas.jpg">
+			<img src="thumb/kolmas-thumb.JPG" alt="kolmas pilt"
+			onclick="showDetails(this.alt); return false;"></a>
+		<a href="img/neljas.jpg">
+			<img src="thumb/neljas-thumb.JPG" alt="neljas pilt"
+			onclick="showDetails(this.alt); return false;"></a>
+		</div>
+			
+		<div id="hoidja" style="display:none;">
+		  <div id="taust"></div>
+		  <div id="tabel">
+			<div id="cell">
+			  <div id="sulge" onclick="hideDetails();">Sulge</div>
+			  <div id="sisu">
+				<img id="suurpilt" onload="suurus(this)" src="" alt="ajutine"/><br/>
+				<span id="inf"></span>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
 	</body>
 </html>
