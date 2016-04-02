@@ -10,7 +10,6 @@
 		<h1> Galerii </h1>
 		<div id="pictures">
 		<?php 
- 
 		foreach ($pildid as $pilt) {
 		echo('<a href="'.$pilt["big"].'">
 			<img src="'.$pilt["small"].'" alt="'.$pilt["alt"].'" 

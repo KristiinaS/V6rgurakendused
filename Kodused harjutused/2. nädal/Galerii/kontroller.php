@@ -6,5 +6,7 @@ $pildid=array(
   array("big"=>"img/neljas.jpg", "small"=>"thumb/neljas-thumb.jpg", "alt"=>"Neljas")
  );
  
- include("index-week6-yl2.php");
+ include_once("view/head.html");
+ include("view/galerii.html");
+ include_once("view/foot.html");
 ?>

@@ -1,3 +1,6 @@
+body{
+	background-color:darkgray;
+}
 #taust{ /* taust, mis peidab lehe sisu */
 	position: fixed;
 	top: 0;
