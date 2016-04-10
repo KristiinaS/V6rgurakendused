@@ -1,0 +1,43 @@
+body{
+	background-image: url("http://eskipaper.com/images/background-pictures-13.jpg");
+	color:white;
+}
+ul,#link{
+	border: 1px solid black;
+	padding:0;
+	overflow:hidden;
+	background-color:#efeff5;
+	width: 643px;
+}
+li{
+	border-right:1px solid black;
+	float:left;
+	text-align:center;
+	display:inline;
+	width:160px;
+}
+li:last-child{
+	border-right:none;
+}
+#link{
+	color:black;
+	padding: 5px;
+	text-decoration:none;
+}
+#link:hover{
+	background-color:white;
+}
+li a{
+	list-style-type: none;
+	display:block;
+	padding: 5px 0 5px 5px;
+	text-decoration:none;
+	color:black;
+}
+li a:hover:not(.active){
+	background-color:#b3ccff;
+}
+.active{
+	background-color:#80aaff;
+	color:white;
+}

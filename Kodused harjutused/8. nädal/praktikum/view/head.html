@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="stiil.css">
+		<title>Pealeht</title>
+	</head>
+	<body>
+		<ul>
+			<li> <a <?php echo ($mode == '') ? "class='active'" : ""; ?>
+					href="?"> Pealeht </a> </li>
+			<li> <a <?php echo ($mode == 'sisselogimine') ? "class='active'" : ""; ?>
+					href="?mode=sisselogimine"> Sisselogimine </a> </li>
+			<li> <a <?php echo ($mode == 'registreerumine') ? "class='active'" : ""; ?>
+					href="?mode=registreerumine"> Registreerumine </a> </li>
+			<li> <a <?php echo ($mode == 'yleslaadimine') ? "class='active'" : ""; ?>
+					href="?mode=yleslaadimine"> Piltide üleslaadimine </a> </li>
+		</ul>
