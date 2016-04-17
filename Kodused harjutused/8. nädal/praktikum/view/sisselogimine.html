@@ -1,10 +1,13 @@
-		<form method="post">
+		<form method="post" action="?mode=sisselogimine">
 			Kasutajanimi <br>
-			<input type="text" name="kasutaja"><br>
+			<input type="text" name="kasutaja" value="<?php if (isset($kasutaja)) echo($kasutaja)?>"><br>
 			Parool<br>
 			<input type="password" name="parool"><br>
+			
 			<input type="submit" value="Logi sisse">
 		</form>
+		
+		<?php if (isset($error)) echo($error) ?>
 		
 		<p>
 		<a id="link" href="?mode=registreerumine"> Registreeru </a>

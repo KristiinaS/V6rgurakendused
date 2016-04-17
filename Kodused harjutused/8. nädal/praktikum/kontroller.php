@@ -1,4 +1,6 @@
 <?php 
+include_once("functions.php");
+
 $pildid=array(
   array("big"=>"img/esimene.jpg", "small"=>"thumb/esimene-thumb.jpg", "alt"=>"Esimene"),
   array("big"=>"img/teine.jpg", "small"=>"thumb/teine-thumb.jpg", "alt"=>"Teine"),
@@ -14,16 +16,16 @@ $pildid=array(
  include_once("view/head.html");
  switch($mode){
 	case 'sisselogimine':
-		include("view/sisselogimine.html");
+		kuva_sisselogimine();
 		break;
 	case 'registreerumine':
-		include("view/registreerumine.html");
+		kuva_registreerumine();
 		break;
 	case 'yleslaadimine':
-		include("view/yleslaadimine.html");
+		kuva_yleslaadimine();
 		break;
 	default:
-		include("view/index.html");
+		kuva_pealeht();
  }
  include_once("view/foot.html");
 ?>
