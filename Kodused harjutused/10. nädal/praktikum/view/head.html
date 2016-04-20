@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="stiil.css">
+		<script src="javascript.js"></script>
+		<title>Logimised</title>
+	</head>
+	<body>
+		<ul>
+			<li> <a <?php echo ($mode == '') ? "class='active'" : ""; ?>
+					href="?"> Pealeht </a> </li>
+			<?php 
+			if (isset($_SESSION['sisselogitud'])){
+				echo "<li> <a ";
+				echo ($mode == 'yleslaadimine') ? "class='active'" : "";
+				echo ' href="?mode=yleslaadimine"> Piltide üleslaadimine </a> </li>';
+				
+				echo "<li> <a ";
+				echo ($mode == 'galerii') ? "class='active'" : "";
+				echo ' href="?mode=galerii"> Galerii </a> </li>';
+				
+				echo "<li> <a ";
+				echo ' href="?mode=logout"> Logi välja </a> </li>';
+			} else {
+				echo "<li> <a ";
+				echo ($mode == 'sisselogimine') ? "class='active'" : "";
+				echo ' href="?mode=sisselogimine"> Sisselogimine </a> </li>';
+				
+				echo "<li> <a ";
+				echo ($mode == 'registreerumine') ? "class='active'" : "";
+				echo ' href="?mode=registreerumine"> Registreerumine </a> </li>';
+			}
+			?>
+		</ul>
+
+		<?php 
+		if (isset($_SESSION['teade'])){
+			echo $_SESSION['teade']; 
+			unset($_SESSION['teade']);
+		}
+		?>
