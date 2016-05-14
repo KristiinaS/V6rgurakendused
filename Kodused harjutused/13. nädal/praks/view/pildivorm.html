@@ -1,0 +1,88 @@
+<?php
+if (!isset($_POST['submitted'])) {
+	if (isset($error)) {
+		echo($error);
+	}
+	if (!isset($_GET['id'])) {
+	?>
+			<form method="post" enctype="multipart/form-data">
+				<table>
+					<caption> Pildi üleslaadimine </caption>
+					<tr>
+						<td> Autor:  </td>
+						<td> <input type="text" name="autor"></td>
+					</tr>
+					<tr>
+						<td>Pealkiri: </td>
+						<td><input type="text" name="pealkiri"></td>
+					</tr>
+					<tr>
+						<td>Suur pilt: </td>
+						<td><input type="file" name="suurpilt"></td>
+					</tr>
+					<tr>
+						<td>Väike pilt:</td>
+						<td><input type="file" name="pisipilt"></td>
+					</tr>
+					<tr>
+						<input type="hidden" name="submitted" value=1>
+						<td><input type="submit" value="Salvesta"></td>
+					</tr>
+				</table>
+			</form>
+	<?php
+	}
+	else {
+	$pilt=pildi_info($_GET['id']);
+	?>
+	<form method="post" action="?mode=pildivorm&id=<?php echo $_GET['id'] ?>">
+	<table>
+		<caption>Pildi <?php echo $pilt['pealkiri'] ?> muutmine</caption>
+		<tr><td colspan=2 align="center"><img src="<?php echo $pilt['thumb'] ?>" alt=""></td></tr>
+		<tr>
+			<td> Autor:  </td>
+						<td> <input type="text" name="autor" value="<?php echo htmlspecialchars($pilt['autor']) ?>"></td>
+					</tr>
+					<tr>
+						<td>Pealkiri: </td>
+						<td><input type="text" name="pealkiri" value="<?php echo htmlspecialchars($pilt['pealkiri']) ?>"></td>
+					</tr>
+					<tr>
+						<input type="hidden" name="submitted" value=1>
+						<td><input type="submit" value="Salvesta"></td>
+					</tr>
+
+	</table>
+	</form>
+	<?php
+	}
+} else {
+	$autor = mysqli_real_escape_string($connection, $_POST['autor']);
+	$pealkiri = mysqli_real_escape_string($connection, $_POST['pealkiri']);
+	if (empty($autor) OR empty($pealkiri)){
+		$_SESSION['teade']= "Autor/pealkiri on puudu! <br> \n";
+		if (isset($_GET['id'])) {
+			$id = $_GET['id'];
+			header("location:?mode=pildivorm&id=$id");
+		} else {
+			header("location:?mode=pildivorm");
+		}	
+	} else {
+		if (isset($_GET['id'])) {
+			$id = $_GET['id'];
+			$query="update 10153280_pildid set pealkiri='$pealkiri',autor='$autor' where id=$id";
+			mysqli_query($connection,$query) or die('mysql viga');
+			$_SESSION['teade']="Pildi andmed muudetud!";
+			header("location:?mode=galerii");
+		}
+		else {
+			$suurpilt = upload('suurpilt', "img");
+			$pisipilt = upload('pisipilt', "thumb");
+			$query = "insert into 10153280_pildid (thumb,pilt,pealkiri,autor) values ('thumb/$pisipilt','img/$suurpilt','$pealkiri','$autor')";
+			mysqli_query($connection,$query) or die("$query - ".mysqli_error($connection));
+			$_SESSION['teade']="Uus pilt lisatud!";
+			header("location:?mode=galerii");
+		}
+	}
+}
+?>
