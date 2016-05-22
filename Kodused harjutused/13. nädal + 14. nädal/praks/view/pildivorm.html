@@ -30,6 +30,17 @@ if (!isset($_POST['submitted'])) {
 					</tr>
 				</table>
 			</form>
+			
+			<div>
+			<?php 
+			$pildid = lae_pildid();
+			foreach ($pildid as $pilt) {
+				echo '<ul>';
+				echo '<li><a href="?mode=pildivorm&id='.$pilt['id'].'"> Muuda pilti "'.$pilt['pealkiri'].'" </a></li>';
+				echo '</ul>';
+			}
+			?>
+			</div>
 	<?php
 	}
 	else {
@@ -41,7 +52,7 @@ if (!isset($_POST['submitted'])) {
 		<tr><td colspan=2 align="center"><img src="<?php echo $pilt['thumb'] ?>" alt=""></td></tr>
 		<tr>
 			<td> Autor:  </td>
-						<td> <input type="text" name="autor" value="<?php echo htmlspecialchars($pilt['autor']) ?>"></td>
+						<td> <input type="text" name="autor" value="<?php echo htmlspecialchars($_SESSION['kasutaja']) ?>" readonly></td>
 					</tr>
 					<tr>
 						<td>Pealkiri: </td>
@@ -57,10 +68,10 @@ if (!isset($_POST['submitted'])) {
 	<?php
 	}
 } else {
-	$autor = mysqli_real_escape_string($connection, $_POST['autor']);
+	$id = $_SESSION['id'];
 	$pealkiri = mysqli_real_escape_string($connection, $_POST['pealkiri']);
-	if (empty($autor) OR empty($pealkiri)){
-		$_SESSION['teade']= "Autor/pealkiri on puudu! <br> \n";
+	if (empty($pealkiri)){
+		$_SESSION['teade']= "Pealkiri on puudu! <br> \n";
 		if (isset($_GET['id'])) {
 			$id = $_GET['id'];
 			header("location:?mode=pildivorm&id=$id");
@@ -70,15 +81,22 @@ if (!isset($_POST['submitted'])) {
 	} else {
 		if (isset($_GET['id'])) {
 			$id = $_GET['id'];
-			$query="update 10153280_pildid set pealkiri='$pealkiri',autor='$autor' where id=$id";
-			mysqli_query($connection,$query) or die('mysql viga');
-			$_SESSION['teade']="Pildi andmed muudetud!";
-			header("location:?mode=galerii");
+			$pilt = pildi_info($_GET['id']);
+			if ($_SESSION['roll'] == "admin" OR $pilt['kasutaja_id'] == $_SESSION['id']){
+				$query="update 10153280_pildid set pealkiri='$pealkiri' where id=$id";
+				mysqli_query($connection,$query) or die('mysql viga');
+				$_SESSION['teade']="Pildi andmed muudetud!";
+				header("location:?mode=galerii");
+			} else {
+				$_SESSION['teade'] = "Sul puuduvad pildi muutiseks vastavad õigused!";
+				header('location:?mode=galerii');
+			}
+			
 		}
 		else {
 			$suurpilt = upload('suurpilt', "img");
 			$pisipilt = upload('pisipilt', "thumb");
-			$query = "insert into 10153280_pildid (thumb,pilt,pealkiri,autor) values ('thumb/$pisipilt','img/$suurpilt','$pealkiri','$autor')";
+			$query = "insert into 10153280_pildid (thumb,pilt,pealkiri,kasutaja_id) values ('thumb/$pisipilt','img/$suurpilt','$pealkiri','$id')";
 			mysqli_query($connection,$query) or die("$query - ".mysqli_error($connection));
 			$_SESSION['teade']="Uus pilt lisatud!";
 			header("location:?mode=galerii");

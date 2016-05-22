@@ -24,14 +24,16 @@ function connect_db(){
 
 function lae_pildid(){
 	global $connection;
-	$query = 'select * from 10153280_pildid';
-	$result = mysqli_query($connection, $query) or die("ei leia tabelit");
-	$output = [];
-	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-		array_push($output, $row);
+	if (isset($_SESSION['id'])){
+		$id = intval($_SESSION['id']);
+		$query = "select * from 10153280_pildid where kasutaja_id='$id'";
+		$result = mysqli_query($connection, $query) or die("$query - ".mysqli_error($connection));
+		$output = [];
+		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+			array_push($output, $row);
+		}
+		return $output;
 	}
-	
-	return $output;
 }
 
 function pildi_info($id){
@@ -63,6 +65,7 @@ function kuva_sisselogimine(){
 				$_SESSION['kasutaja'] = $kasutaja;
 				$value = mysqli_fetch_object($result);
 				$_SESSION['id'] = $value->id;
+				$_SESSION['roll'] = $value->roll;
 				header('Location: ?mode=galerii');
 			} else {
 				$error.= "Kasutajanimi/parool on vale! <br> \n";
