@@ -29,7 +29,9 @@ function logi(){
 				$result = mysqli_query($connection, $query) or die("$query - ".mysqli_error($connection));
 				$rows = mysqli_num_rows($result);
 				if ($rows) {
+					$value = mysqli_fetch_object($result);
 					$_SESSION['user'] = $kasutaja;
+					$_SESSION['roll'] = $value->roll;
 					header('Location:?page=loomad');
 				}
 			} 
@@ -69,20 +71,24 @@ function lisa(){
 	if (!isset($_SESSION['user'])) {
 		$error = "Piltide lisamiseks logi sisse!";
 		array_push($errors, $error);
-		header('Location:?page=login');
+		include_once('views/login.html');
 	} else {
 		if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-			$nimi = mysqli_real_escape_string($connection, htmlspecialchars($_POST['nimi']));
-			$puur = mysqli_real_escape_string($connection, htmlspecialchars($_POST['puur']));
-			$liik = upload('liik');
-			if (empty($nimi) OR empty($puur) OR empty($liik)) {
-				$error = "Nimi/puur/fail on puudu!";
-				array_push($errors,$error);
+			if ($_SESSION['roll'] != "admin") {
+				header("location:?page=loomad");
 			} else {
-				$query = "insert into 10153280_loomaaed(nimi,puur,liik) values ('$nimi','$puur','$liik')";
-				mysqli_query($connection,$query) or die("$query - ".mysqli_error($connection));
-				if (mysqli_insert_id($connection) > 0) {
-					header('Location:?page=loomad');
+				$nimi = mysqli_real_escape_string($connection, htmlspecialchars($_POST['nimi']));
+				$puur = mysqli_real_escape_string($connection, htmlspecialchars($_POST['puur']));
+				$liik = upload('liik');
+				if (empty($nimi) OR empty($puur) OR empty($liik)) {
+					$error = "Nimi/puur/fail on puudu!";
+					array_push($errors,$error);
+				} else {
+					$query = "insert into 10153280_loomaaed(nimi,puur,liik) values ('$nimi','$puur','$liik')";
+					mysqli_query($connection,$query) or die("$query - ".mysqli_error($connection));
+					if (mysqli_insert_id($connection) > 0) {
+						header('Location:?page=loomad');
+					}
 				}
 			}
 		}
@@ -90,6 +96,63 @@ function lisa(){
 	
 	include_once('views/loomavorm.html');
 	
+}
+
+function muuda() {
+	$errors = [];
+	global $connection;
+	if (!isset($_SESSION['user'])) {
+		header('Location:?page=login');
+	} else if ($_SESSION['roll'] != "admin") {
+		$error = "Loomade muutmiseks puuduvad õigused!";
+		array_push($errors, $error);
+		include_once('views/editvorm.html');
+	} else if (!isset($_GET['id'])) {
+		header('location:?page=loomad');
+	} else {
+		if ($_SERVER['REQUEST_METHOD'] == "POST") {
+			$nimi = mysqli_real_escape_string($connection, htmlspecialchars($_POST['nimi']));
+			$puur = mysqli_real_escape_string($connection, htmlspecialchars($_POST['puur']));
+			$liik = upload('liik');
+			$id=htmlspecialchars($_GET['id']);
+			if (empty($nimi) OR empty($puur)) {
+				$error = "Nimi/puur on puudu!";
+				array_push($errors,$error);
+				include_once('views/editvorm.html');
+			} else {
+				if (!$liik) {
+					$query = "update 10153280_loomaaed set nimi='$nimi', puur='$puur' where id='$id'";
+					mysqli_query($connection,$query) or die("$query - ".mysqli_error($connection));
+				} else {
+					$query = "update 10153280_loomaaed set nimi='$nimi', puur='$puur', liik='$liik' where id='$id'";
+					mysqli_query($connection,$query) or die("$query - ".mysqli_error($connection));
+				}
+				header('Location:?page=loomad');
+			}
+			
+		} else {
+			$loom = hangi_loom($_GET['id']);
+			include_once('views/editvorm.html');
+		}
+	}
+
+}
+
+function hangi_loom($id){
+	global $connection;
+	$loom = [];
+	$query = "select * from 10153280_loomaaed where id=$id";
+	$result = mysqli_query($connection,$query) or die("$query - ".mysqli_error($connection));
+	$rows = mysqli_num_rows($result);
+	if ($rows) {
+		$value = mysqli_fetch_object($result);
+		$loom['nimi'] = $value->nimi;
+		$loom['puur'] = $value->puur;
+		$loom['liik'] = $value->liik;
+		return $loom;
+	} else {
+		header('location:?page=loomad');
+	}
 }
 
 function upload($name){

@@ -13,19 +13,22 @@ include_once('views/head.html');
 switch($page){
 	case "login":
 		logi();
-	break;
+		break;
 	case "loomad":
 		kuva_puurid();
-	break;
+		break;
 	case "logout":
 		logout();
-	break;
+		break;
 	case "lisa":
 		lisa();
-	break;
+		break;
+	case "muuda":
+		muuda();
+		break;
 	default:
 		include_once('views/v2rav.html');
-	break;
+		break;
 }
 
 include_once('views/foot.html');
