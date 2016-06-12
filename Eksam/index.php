@@ -9,6 +9,7 @@
 				text-align:center;
 			}
 		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 	</head>
 	<body onload="showLocalTime()">
 	
@@ -23,28 +24,7 @@
 			?>
 		</div></p>
 		
-		<div>
-			<?php
-			$localTime = $_COOKIE["localTime"];
-			/*echo $localTime;
-			echo "-----";
-			//echo $_COOKIE["localTime"];
-			//echo "-----";*/
-			$serverTime = date("H:i:s", time());
-			//echo $serverTime;
-			$offTime = abs($localTime-$serverTime);
-			
-			if ($localTime == $serverTime){
-				echo "<br>Your time is correct!";
-			} else {
-				$localTime = strtotime($_COOKIE["localTime"]);
-				$serverTime = strtotime(date("H:i:s", time()));
-				$offTime > 0;
-				echo "<br>The time is off: ";
-				echo round(abs($localTime-$serverTime) / 60,2)." minute(s)";
-			}
-			
-			?>
+		<div id="diff">
 		</div>
 		
 	</body>

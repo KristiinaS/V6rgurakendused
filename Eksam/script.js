@@ -1,25 +1,37 @@
 function showLocalTime(){
-	var currentTime = new Date();
-	var hours = currentTime.getHours();
-	var minutes = currentTime.getMinutes();
-	var seconds = currentTime.getSeconds();
+	$.get({
+		type: 'GET',
+		url: 'clock.php',
+		success: function (data) {
+			var userTime = new Date();			
+			var serverTime = data;
 
-	minutes = checkTime(minutes);
-	seconds = checkTime(seconds);
-	var timeStamp = hours + ":" + minutes + ":" + seconds;
+			console.info(userTime.valueOf());
+			console.info(serverTime);
 
+			var diff= Math.abs(Math.round(userTime-serverTime));
+			console.info(diff);
 
-	document.cookie = "localTime = " + timeStamp + "; expires = ";
-	document.getElementById("localTime").innerHTML = timeStamp;
-	
-	var now = new Date();
-	var time = now.getTime();
-	var expireTime = time + 1000*36000;
-	now.setTime(expireTime);
-	var tempExp = 'Wed, 31 Oct 2012 08:50:17 GMT';
-	document.cookie = "localTime = " + timeStamp + "; expires = "+now.toGMTString()+';path=/';
-	//document.cookie = 'cookie=ok;expires='+now.toGMTString()+';path=/';
-	//var t = setTimeout(showLocalTime, 500);
+			var hours = userTime.getHours();
+			var minutes = userTime.getMinutes();
+			var seconds = userTime.getSeconds();
+			minutes = checkTime(minutes);
+			seconds = checkTime(seconds);
+
+			var timeStamp = hours + ":" + minutes + ":" + seconds;
+
+			document.getElementById("localTime").innerHTML = timeStamp;
+			if (diff < 1000) {
+				document.getElementById("diff").innerHTML = "Your time is less than 1 second off!";
+			}
+			else {
+				var minutes = parseInt(diff / 60000);
+				var seconds = Math.round(diff % 60000 / 10) / 100;
+				document.getElementById("diff").innerHTML = "Your time is off by " + minutes + " minutes and "+  seconds +" seconds.";
+			}
+
+		}
+	});
 }
 
 function checkTime(time){
